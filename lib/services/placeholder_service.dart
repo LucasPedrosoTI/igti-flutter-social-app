@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:social_app/models/comment.dart';
 import 'package:social_app/models/post.dart';
 import 'package:social_app/models/user.dart';
 
@@ -27,4 +28,16 @@ class PlaceholderService {
       throw Exception('Erro ao buscar perfil do usuário.');
     }
   }
+
+  Future<List<Comment>> getComments(int postId) async {
+    var response = await http.get('$baseUrl/posts/$postId/comments');
+    if (response.statusCode == 200) {
+      var objs = jsonDecode(response.body) as List;
+      var comments = objs.map((obj) => Comment.fromJson(obj)).toList();
+      return comments;
+    } else {
+      throw Exception('Erro ao buscar posts');
+    }
+  }
+
 } 

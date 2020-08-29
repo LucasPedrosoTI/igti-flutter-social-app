@@ -6,12 +6,14 @@ import 'package:social_app/services/placeholder_service.dart';
 
 class DrawerComponent extends StatelessWidget {
   final styles = {'text': TextStyle(fontSize: 20)};
-  final Router router = Router();
   final _placeholderService = PlaceholderService();
 
   @override
   Widget build(BuildContext context) {
-    router.context = context;
+
+    Router router = Router.fromContext(context);
+    router.navigator = Navigator.pushReplacement;
+
     return Drawer(
       child: ListView(
         children: [

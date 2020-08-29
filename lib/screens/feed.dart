@@ -12,15 +12,9 @@ class Feed extends StatefulWidget {
 
 class _FeedState extends State<Feed> {
   final PlaceholderService _placeholderService = PlaceholderService();
-  List<Post> _posts = [];
 
   void initState() {
     super.initState();
-    _placeholderService.getPosts().then((resp) {
-      setState(() {
-        _posts = resp;
-      });
-    });
   }
 
   @override
@@ -34,7 +28,7 @@ class _FeedState extends State<Feed> {
             future: _placeholderService.getPosts(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return ListViewComponent.listView(snapshot: snapshot);
+                return ListViewComponent.listView(snapshot: snapshot, cardType: 'post');
               } else if (snapshot.hasError) {
                 return Text('Erro');
               }
